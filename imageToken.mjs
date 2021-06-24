@@ -14,7 +14,7 @@ export default ( {
                      containerSize,
                      thickness,
                      edgeFaceCount,
-    initialAnimationState
+                     initialAnimationState
                  } ) => {
     diameter = diameter || 300
     containerSize = containerSize || 750
@@ -26,7 +26,7 @@ export default ( {
         imgFront = imgUrl
         imgBack = imgUrl
     }
-    const animationState = fnstate( initialAnimationState|| {
+    const animationState = fnstate( initialAnimationState || {
         xFlipSpeed: 1,
         yFlipSpeed: 1,
         tokenSpinSpeed: 1,
@@ -77,58 +77,37 @@ export default ( {
         ),
         face( imgBack, 'back', `translateZ(-${thickness / 2}px) rotateY(180deg)` ),
     )
-    const container = div( token )
-    let rotateX, rotateY, spinToken, spinContainer, bounce
+    const bounceContainer = div( token )
+    let imageToken = flexCenteredCol(
+        {
+            style: {
+                width: '100%',
+                'max-height': `${containerSize}px`,
+                height: '100%',
+                'justify-content': 'center',
+                'max-width': `${containerSize}px`,
+            }
+        },
+        bounceContainer
+    );
+    let flip, spin, bounce
 
     const runAnimate = () => {
 
-        if( rotateX ) rotateX.cancel()
-        if( rotateY ) rotateX.cancel()
-        if( spinToken ) rotateX.cancel()
+        if( flip ) flip.cancel()
         if( bounce ) bounce.cancel()
-        if( spinContainer ) spinContainer.cancel()
-        rotateX = token.animate(
-            [{ transform: 'rotateX(0)' },
-                {
-                    transform:
-                        `rotateX(360deg)`
-                }
+        if( spin ) spin.cancel()
+        flip = token.animate(
+            [
+                { transform: `rotateX(${360 * animationState().xFlipSpeed}deg) rotateY(${360 * animationState().yFlipSpeed}deg) rotate(${360 * animationState().tokenSpinSpeed}deg)` }
             ],
             {
-                duration: 10000 / animationState().xFlipSpeed,
+                duration: 10000,
                 iterations: Infinity,
                 easing: 'linear'
             }
         )
-        rotateY = token.animate(
-            [{ transform: 'rotateY(0)' },
-                {
-                    transform:
-                        `rotateY(360deg)`
-                }
-            ],
-            {
-                duration: 10000 / animationState().yFlipSpeed,
-                iterations: Infinity,
-                easing: 'linear',
-                composite: 'add'
-            }
-        )
-        spinToken = token.animate(
-            [{ transform: 'rotate(0)' },
-                {
-                    transform:
-                        `rotate(360deg)`
-                }
-            ],
-            {
-                duration: 10000 / animationState().tokenSpinSpeed,
-                iterations: Infinity,
-                easing: 'linear',
-                composite: 'add'
-            }
-        )
-        spinContainer = container.animate(
+        spin = imageToken.animate(
             [{ transform: 'rotate(0)' },
                 {
                     transform:
@@ -142,8 +121,8 @@ export default ( {
             }
         )
         let maxDistance = ( containerSize - diameter / 2 ) / 2 * ( animationState().bounceDistance / 10 );
-        bounce = container.animate(
-            [{ transform: 'rotateX(0) rotateY(0) rotate(0) translateX(0)', offset: 0, easing: 'ease-out' },
+        bounce = bounceContainer.animate(
+            [{ transform: 'translateX(0)', offset: 0, easing: 'ease-out' },
                 {
                     transform: `translateX(${maxDistance}px)`,
                     offset: 0.25,
@@ -160,25 +139,13 @@ export default ( {
             ],
             {
                 duration: 10000 / animationState().bounceSpeed,
-                iterations: Infinity,
-                composite: 'add'
+                iterations: Infinity
             }
         )
     }
     animationState.subscribe( runAnimate )
     runAnimate()
-    let imageToken = flexCenteredCol(
-        {
-            style: {
-                width: '100%',
-                'max-height': `${containerSize}px`,
-                height: '100%',
-                'justify-content': 'center',
-                'max-width': `${containerSize}px`,
-            }
-        },
-        container
-    );
+
     imageToken.animationState = animationState
     return imageToken
 
