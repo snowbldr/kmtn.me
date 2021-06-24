@@ -11,13 +11,11 @@ export default ( {
                      imgBack,
                      rgb,
                      diameter,
-                     containerSize,
                      thickness,
                      edgeFaceCount,
                      initialAnimationState
                  } ) => {
     diameter = diameter || 300
-    containerSize = containerSize || 750
     thickness = thickness || 20
     const [red, green, blue] = rgb || [175, 175, 175];
     edgeFaceCount = edgeFaceCount || 80
@@ -82,10 +80,8 @@ export default ( {
         {
             style: {
                 width: '100%',
-                'max-height': `${containerSize}px`,
                 height: '100%',
                 'justify-content': 'center',
-                'max-width': `${containerSize}px`,
             }
         },
         bounceContainer
@@ -120,7 +116,16 @@ export default ( {
                 easing: 'linear'
             }
         )
-        let maxDistance = ( containerSize - diameter / 2 ) / 2 * ( animationState().bounceDistance / 10 );
+
+        let maxDimension = window.innerWidth
+        if(window.innerHeight > window.innerWidth) {
+            maxDimension = window.innerHeight
+        }
+        if(maxDimension > 1000) {
+            maxDimension = 1000
+        }
+
+        let maxDistance = ( maxDimension  ) / 2 * ( animationState().bounceDistance / 10 );
         bounce = bounceContainer.animate(
             [{ transform: 'translateX(0)', offset: 0, easing: 'ease-out' },
                 {
