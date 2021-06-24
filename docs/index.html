@@ -1,0 +1,84 @@
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>kmtn.me</title>
+</head>
+<body style="margin: 0; padding: 0;">
+<script type="module">
+    import {
+        div,
+        h2,
+        a,
+        img,
+        flexCenteredCol,
+        flexCenteredRow
+    } from 'https://cdn.jsdelivr.net/npm/@srfnstack/fntags@0.1.4/src/fnelements.mjs'
+    import imageToken from './imageToken.mjs';
+    // import tokenControls from './tokenControls.mjs';
+
+    document.body.append(
+        div(
+            {
+                id: 'main',
+                style: {
+                    'min-height': '100vh',
+                    background: 'url(./hubble_bg.png)',
+                    'background-size': 'cover',
+                    'background-position': 'center'
+                }
+            },
+            flexCenteredCol(
+                {
+                    style: {
+                        height: '75vh'
+                    }
+                },
+                // tokenControls(
+                imageToken( {
+                    imgUrl: './avatar.jpeg', rgb: [140, 135, 125], initialAnimationState: {
+                        xFlipSpeed: 3,
+                        yFlipSpeed: 0,
+                        tokenSpinSpeed: 1,
+                        rotateSpeed: 1,
+                        bounceDistance: 6,
+                        bounceSpeed: 3,
+                    }
+                } ),
+                // )
+                div(
+                    {
+                        style: {
+                            color: '#f5d0f3',
+                            'background-color': 'rgb(32 35 139 / 30%)',
+                            padding: '11px',
+                            'font-size': 'xx-large',
+                            'border-radius': '10%',
+                            'margin-top': '10vh',
+                            'font-family': 'verdana',
+                            position: 'absolute',
+                            bottom: '4vh',
+                            'box-shadow': '0px 0px 125px 125px rgb(32 35 139 / 30%)'
+                        }
+                    },
+                    h2('Robert'),
+                    flexCenteredRow(
+                        {
+                            style: {
+                                'justify-content': 'space-between'
+                            }
+                        },
+                        a( { href: 'https://github.com/snowbldr', target: '_blank' },
+                            img( { src: './GitHub-Mark-Light-64px.png' } ),
+                        ),
+                        a( { href: 'https://www.linkedin.com/in/robert-kempton-10051586/', target: '_blank' },
+                            img( { height: 64, src: './LI-In-Bug.png' } ),
+                        ),
+
+                    )
+                )
+            )
+        )
+    )
+</script>
+</body>
+</html>
