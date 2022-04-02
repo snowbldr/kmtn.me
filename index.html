@@ -5,82 +5,92 @@
 </head>
 <body style="margin: 0; padding: 0;">
 <script type="module">
-    import {
-        div,
-        h2,
-        a,
-        img,
-        flexCenteredCol,
-        flexCenteredRow
-    } from 'https://cdn.jsdelivr.net/npm/@srfnstack/fntags@0.1.4/src/fnelements.mjs'
-    import imageToken from './imageToken.mjs';
-    // import tokenControls from './tokenControls.mjs';
+  import {
+    div,
+    a,
+    img,
+    flexCenteredCol,
+    flexCenteredRow,
+    style
+  } from 'https://cdn.jsdelivr.net/npm/@srfnstack/fntags@0.3.5/src/fnelements.mjs'
+  import imageToken from './imageToken.mjs'
+  import tokenControls, { showControls } from './tokenControls.mjs'
 
-    document.body.append(
-        flexCenteredCol(
-            {
-                id: 'main',
-                style: {
-                    'justify-content': 'center',
-                    background: 'url(./hubble_bg-min.jpg)',
-                    'background-size': 'cover',
-                    'background-position': 'center'
-                }
-            },
-            flexCenteredCol(
-                {
-                    style: {
-                        height: '100vh',
-                        overflow: 'hidden',
-                        width: '100vw'
-                    }
-                },
-                // tokenControls(
-                imageToken( {
-                    imgUrl: './avatar.jpeg', rgb: [140, 135, 125], initialAnimationState: {
-                        xFlipSpeed: 3,
-                        yFlipSpeed: 0,
-                        tokenSpinSpeed: 1,
-                        rotateSpeed: 1,
-                        bounceDistance: 6,
-                        bounceSpeed: 3,
-                    }
-                } )
-                // )
-
-            ),
-            div(
-                {
-                    style: {
-                        color: '#f5d0f3',
-                        'background-color': 'rgb(32 35 139 / 30%)',
-                        padding: '11px',
-                        'font-size': 'xx-large',
-                        'border-radius': '10%',
-                        'margin-top': '10vh',
-                        'font-family': 'verdana',
-                        position: 'fixed',
-                        bottom: '4vh',
-                        'box-shadow': '0px 0px 125px 125px rgb(32 35 139 / 30%)'
-                    }
-                },
-                h2( 'Robert' ),
-                flexCenteredRow(
-                    {
-                        style: {
-                            'justify-content': 'space-between'
-                        }
-                    },
-                    a( { href: 'https://github.com/snowbldr', target: '_blank' },
-                        img( { src: './GitHub-Mark-Light-64px.png' } ),
-                    ),
-                    a( { href: 'https://www.linkedin.com/in/robert-kempton-10051586/', target: '_blank' },
-                        img( { height: 64, src: './LI-In-Bug.png' } ),
-                    ),
-                )
-            )
+  document.body.append(
+    style(`
+        @keyframes wiggle {
+          80% {transform: rotate(0deg);}
+          85% {transform: rotate(10deg);}
+          90% {transform: rotate(-10deg);}
+          95% {transform: rotate(10deg);}
+          100% {transform: rotate(0deg);}
+        }
+      `),
+    flexCenteredCol(
+      {
+        id: 'main',
+        onclick: ()=> showControls(false),
+        style: {
+          userSelect: 'none',
+          justifyContent: 'center',
+          background: 'url(./hubble_bg-min.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
+        }
+      },
+      flexCenteredCol(
+        {
+          style: {
+            height: '100vh',
+            overflow: 'hidden',
+            width: '100vw'
+          }
+        },
+        tokenControls(
+          imageToken({
+            imgUrl: './avatar.jpeg', rgb: [140, 135, 125], initialAnimationState: {
+              xFlipSpeed: 3,
+              yFlipSpeed: 0,
+              tokenSpinSpeed: 1,
+              rotateSpeed: 1,
+              bounceDistance: 6,
+              bounceSpeed: 3,
+            }
+          })
         )
+      ),
+      div(
+        {
+          style: {
+            color: '#deebff',
+            backgroundColor: 'rgb(32 35 139 / 15%)',
+            padding: '11px',
+            fontSize: '50px',
+            borderRadius: '35%',
+            fontFamily: 'verdana',
+            position: 'fixed',
+            bottom: '1vh',
+            boxShadow: '0px 0px 60px 60px rgb(32 35 139 / 15%)',
+            zIndex: 1000
+          }
+        },
+        div(
+          'Robert',
+          flexCenteredRow(
+            {
+              style: {
+                marginTop: '10px',
+                justifyContent: 'center'
+              }
+            },
+            a({ href: 'https://github.com/snowbldr', target: '_blank' },
+              img({ src: './GitHub-Mark-Light-64px.png' }),
+            )
+          )
+        )
+      )
     )
+  )
 </script>
 </body>
 </html>

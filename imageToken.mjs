@@ -2,8 +2,8 @@ import {
     div,
     img,
     flexCenteredCol
-} from 'https://cdn.jsdelivr.net/npm/@srfnstack/fntags@0.1.4/src/fnelements.mjs'
-import { fnstate } from 'https://cdn.jsdelivr.net/npm/@srfnstack/fntags@0.1.4/src/fntags.mjs'
+} from 'https://cdn.jsdelivr.net/npm/@srfnstack/fntags@0.3.5/src/fnelements.mjs'
+import { fnstate } from 'https://cdn.jsdelivr.net/npm/@srfnstack/fntags@0.3.5/src/fntags.mjs'
 
 export default ( {
                      imgUrl,
@@ -51,7 +51,7 @@ export default ( {
                 position: 'relative',
                 margin: '50px auto',
                 'transform-style': 'preserve-3d',
-                transition: 'all .3s',
+                transition: 'all .3s'
             }
         },
         face( imgFront, 'front', `translateZ(${thickness / 2}px)` ),
@@ -81,7 +81,8 @@ export default ( {
             style: {
                 width: '100%',
                 height: '100%',
-                'justify-content': 'center',
+                justifyContent: 'center',
+                zIndex: 50,
             }
         },
         bounceContainer
