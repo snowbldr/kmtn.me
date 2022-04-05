@@ -18,8 +18,8 @@ export default ( {
     diameter = diameter || 300
     thickness = thickness || 20
     const [red, green, blue] = rgb || [175, 175, 175];
-    edgeFaceCount = edgeFaceCount || 80
-    const edgeFaceLength = 3.14 * diameter / edgeFaceCount
+    edgeFaceCount = edgeFaceCount || 90
+    const edgeFaceLength = Math.PI * diameter / edgeFaceCount
     if( imgUrl ) {
         imgFront = imgUrl
         imgBack = imgUrl
@@ -34,7 +34,7 @@ export default ( {
     } )
 
     const face = ( imgUrl, name, transform ) => img( {
-        width: diameter, height: diameter,
+        width: diameter+0.6, height: diameter+0.6,
         src: imgUrl, style: {
             'border-radius': '50%',
             transform,
@@ -60,7 +60,7 @@ export default ( {
                 return div( {
                     style: {
                         position: 'absolute',
-                        height: edgeFaceLength + 1 + 'px',
+                        height: edgeFaceLength + 2 + 'px',
                         width: `${thickness}px`,
                         background: `rgb( ${red * darkenPercent},${green * darkenPercent},${blue * darkenPercent})`,
                         transform:
